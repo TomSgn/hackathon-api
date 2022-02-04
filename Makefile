@@ -3,7 +3,7 @@
 REPO= github.com/hackaton-team-5/hackathon-api
 IMAGE= hackathon-api
 TAG= dev
-DOCKER_REPO= cagip
+DOCKER_REPO= europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0/hackathon
 
 dependency:
 	go mod vendor

@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Lint (formatting issues only)
     runs-on: ubuntu-18.04
     timeout-minutes: 30
     steps:
@@ -23,23 +23,26 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-      - name: Install dependencies
-        run: |
-          go version
-          go get -u golang.org/x/lint/golint
-      - name: Run Vet
-        run: go vet ./...
-      - name: Run Lint
-        run: golint ./...
       - name: Run Fmt (format also documentation snippets)
         run: gofmt -l ./**/*.go
 
   build:
-      name: build docker img
-      runs-on: ubuntu-18.04
-      timeout-minutes: 30
-      steps:
-        - uses: actions/checkout@v2
-        - name: build docker image 
-          run: |
-            make image
+    name: Build 
+    runs-on: ubuntu-18.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v2
+      - name: build docker image 
+        run: |
+          make image
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v2
+      - name: build docker image 
+        run: |
+          echo "Do some deploy stuff"
+

@@ -14,6 +14,9 @@ build: dependency
 image:
 	docker buildx build --no-cache --push --platform linux/amd64,linux/arm64 -t "$(DOCKER_REPO)/$(IMAGE):$(TAG)" -f Dockerfile .
 
+image-local:
+	docker buildx build --platform linux/amd64,linux/arm64 -t "$(DOCKER_REPO)/$(IMAGE):$(TAG)-local" -f Dockerfile .
+
 dep:
 	glide install
 

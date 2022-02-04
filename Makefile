@@ -1,6 +1,6 @@
 .PHONY: build
 
-REPO= github.com/ca-gip/hackathon-api
+REPO= github.com/hackaton-team-5/hackathon-api
 IMAGE= hackathon-api
 TAG= dev
 DOCKER_REPO= cagip

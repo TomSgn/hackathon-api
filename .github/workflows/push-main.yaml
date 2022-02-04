@@ -41,7 +41,7 @@ jobs:
         with:
           token_format: 'access_token'
           workload_identity_provider: 'projects/892650738590/locations/global/workloadIdentityPools/github-action-pool/providers/github-provider'
-          service_account: 'github-action'
+          service_account: 'github-action@cagip-hackathon-eq05-inno0-27.iam.gserviceaccount.com'
       - name: Login to GAR
         uses: docker/login-action@v1
         with:

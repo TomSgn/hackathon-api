@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"hackathon-api/configs"
 	"hackathon-api/routes"
 	"time"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -27,6 +28,7 @@ func main() {
 	routes.DonationRoute(router)
 	routes.StatisticsRoute(router)
 	routes.CacheRoute(router)
+	routes.Metrics(router)
 
 	router.Run("0.0.0.0:8080")
 }

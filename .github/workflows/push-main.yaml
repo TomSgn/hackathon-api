@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0-27/hackaton/hackathon-api:${{ steps.commit.outputs.sha_short }}
+          tags: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0-27/hackaton/hackathon-api:dev
 
   deploy:
     name: Deploy

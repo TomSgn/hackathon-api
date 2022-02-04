@@ -2,6 +2,7 @@ package main
 
 import (
 	"hackathon-api/configs"
+	"hackathon-api/metrics"
 	"hackathon-api/routes"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 func main() {
 	router := gin.Default()
 
+	metrics.RegisterMetrics()
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"OPTIONS", "GET", "PUT", "PATCH", "DELETE"},
@@ -20,6 +22,7 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
+	router.Use(metrics.PrometheusMiddleware())
 
 	//run database
 	configs.ConnectDB()

@@ -10,11 +10,6 @@ env:
   GKE_CLUSTER_NAME: cluster-demo
   GKE_REGION: europe-west1
 
-env:
-  PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  GKE_CLUSTER_NAME: cluster-demo
-  GKE_REGION: europe-west1
-
 jobs:
   lint:
     name: Lint (formatting issues only)

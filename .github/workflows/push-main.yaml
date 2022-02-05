@@ -82,5 +82,7 @@ jobs:
           if helm upgrade hackathon-api ./charts/hackathon-api --install --namespace default --set image.tag="$GITHUB_RUN_ID" --wait --timeout 1m; then
             echo "deployment succeeded!"
           else
+            echo "DEPLOYMENT FAILED! TRYING TO ROLLBACK"
             helm rollback hackathon-api --namespace default
+            exit 1
           fi

@@ -41,15 +41,15 @@ spec:
               value: mongodb://mongo:27017/donation?retryWrites=true&w=majority
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /donations
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /donations
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

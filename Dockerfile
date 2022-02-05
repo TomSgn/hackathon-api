@@ -20,6 +20,7 @@ FROM scratch
 WORKDIR /app
 
 COPY --from=builder /app/hackathon-api .
+COPY --from=builder /usr/local/bin/hackathon-reward /usr/local/bin/hackathon-reward
 
 EXPOSE 8080
 CMD [ "./hackathon-api" ]

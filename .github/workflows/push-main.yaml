@@ -79,10 +79,10 @@ jobs:
       - name: Deploy
         run: |
           set -x
-          if helm upgrade hackathon-api ./charts/hackathon-api --install --namespace default --set image.tag="$GITHUB_RUN_ID" --wait --timeout 1m; then
+          if helm upgrade hackathon-api ./charts/hackathon-api --install --namespace hackathon-api --set image.tag="$GITHUB_RUN_ID" --wait --timeout 1m; then
             echo "deployment succeeded!"
           else
             echo "DEPLOYMENT FAILED! TRYING TO ROLLBACK"
-            helm rollback hackathon-api --namespace default
+            helm rollback hackathon-api --namespace hackathon-api
             exit 1
           fi

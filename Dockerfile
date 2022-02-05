@@ -1,4 +1,4 @@
-FROM golang:1.16 as Builder
+FROM golang:1.16 as builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ FROM scratch
 
 WORKDIR /app
 
-COPY --from=Builder /app/hackathon-api .
+COPY --from=builder /app/hackathon-api .
 
 EXPOSE 8080
 CMD [ "./hackathon-api" ]

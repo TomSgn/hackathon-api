@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0/hackathon
+  repository: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0-27/hackathon/hackathon-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "dev"
+  tag: dev
 
 imagePullSecrets: []
 nameOverride: ""

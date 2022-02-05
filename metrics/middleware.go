@@ -17,6 +17,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 		c.Next()
 
 		ResponseStatus.WithLabelValues(fmt.Sprintf("%d", c.Writer.Status()), c.Request.Method, c.Request.URL.Path).Inc()
+		TotalRequests.WithLabelValues(c.Request.URL.Path).Inc()
 
 		timer.ObserveDuration()
 	}

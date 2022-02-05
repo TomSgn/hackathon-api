@@ -42,6 +42,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
+      - uses: actions/checkout@v2
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v0'
@@ -66,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0-27/hackathon/hackathon-api:${{ github.run_id }}
+          tags: europe-west3-docker.pkg.dev/cagip-hackathon-eq05-inno0-27/hackathon/hackathon-api:${{ steps.commit.outputs.sha_short }}
 
   deploy:
     name: Deploy
@@ -84,13 +85,18 @@ jobs:
       - uses: azure/setup-helm@v1
         with:
           version: '3.7.2'
+      - name: Get short SHA commit
+        id: commit
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Deploy
         run: |
           set -x
-          if helm upgrade hackathon-api ./charts/hackathon-api --install --namespace hackathon-api --set image.tag="$GITHUB_RUN_ID" --wait --timeout 1m; then
+          if helm upgrade hackathon-api ./charts/hackathon-api --install --namespace hackathon-api --set image.tag="$COMMIT_SHORT_SHA" --wait --timeout 1m; then
             echo "deployment succeeded!"
           else
             echo "DEPLOYMENT FAILED! TRYING TO ROLLBACK"
             helm rollback hackathon-api --namespace hackathon-api
             exit 1
           fi
+        env:
+          COMMIT_SHORT_SHA: ${{ steps.commit.outputs.sha_short }}

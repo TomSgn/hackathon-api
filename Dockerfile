@@ -1,21 +1,33 @@
-FROM golang:1.16 as builder
+FROM golang:latest
+ARG TARGETARCH TARGETOS
 
-WORKDIR /app
+RUN echo "I am running on $TARGETARCH building for $TARGETPLATFORM" > /log
+
+WORKDIR /root/
+RUN ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
+RUN ln -s /usr/bin/dpkg-deb /usr/sbin/dpkg-deb
+RUN ln -s /bin/rm /usr/sbin/rm
+RUN ln -s /bin/tar /usr/sbin/tar
 
 COPY . .
+RUN go mod tidy
+RUN GO111MODULE="on" CGO_ENABLED=0 go build  -a -ldflags '-extldflags "-static"' -v -o ./build/hackathon-api ./main.go
 
 RUN apt update && \
-    apt install -y --no-install-recommends \
-    xvfb libfontconfig wget fontconfig xfonts-75dpi xfonts-100dpi xfonts-scalable xfonts-base \
-    && rm -rf /var/lib/apt/lists/*
+      apt install -y --no-install-recommends \
+      xvfb libfontconfig wget fontconfig xfonts-75dpi xfonts-100dpi xfonts-scalable xfonts-base \
+      && rm -rf /var/lib/apt/lists/*
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o hackathon-api .
 
-FROM scratch
+RUN wget  https://github.com/ca-gip/hackathon-api/releases/download/v0.1.1/hackathon-reward-${TARGETOS}-${TARGETARCH} -O hackathon-reward
+RUN chmod a+x hackathon-reward && \
+    mv ./hackathon-reward /usr/local/bin/hackathon-reward
 
-WORKDIR /app
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_${TARGETARCH}.deb
+RUN apt update && \
+    apt install ./wkhtmltox_0.12.6-1.buster_${TARGETARCH}.deb  -y && \
+    rm wkhtmltox_0.12.6-1.buster_${TARGETARCH}.deb
 
-COPY --from=builder /app/hackathon-api .
 
 EXPOSE 8080
-CMD [ "./hackathon-api" ]
+CMD ["./build/hackathon-api"]

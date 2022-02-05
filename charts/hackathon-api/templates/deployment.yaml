@@ -15,6 +15,9 @@ spec:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
+        prometheus.io/path: '/metrics'
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8080'
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -33,17 +36,20 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MONGOURI
+              value: mongodb://mongo:27017/donation?retryWrites=true&w=majority
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /donations
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /donations
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

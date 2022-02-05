@@ -14,7 +14,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 			return
 		}
 		timer := prometheus.NewTimer(HttpResponseTime.WithLabelValues(fmt.Sprintf("%d", c.Writer.Status()), c.Request.Method, c.Request.URL.Path))
-		fmt.Println(c.Next())
+		c.Next()
 
 		ResponseStatus.WithLabelValues(fmt.Sprintf("%d", c.Writer.Status()), c.Request.Method, c.Request.URL.Path).Inc()
 		TotalRequests.WithLabelValues(c.Request.URL.Path).Inc()

@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - ci-cd
+
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GKE_CLUSTER_NAME: cluster-demo

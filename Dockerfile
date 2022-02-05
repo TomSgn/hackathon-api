@@ -10,7 +10,7 @@ RUN ln -s /bin/rm /usr/sbin/rm
 RUN ln -s /bin/tar /usr/sbin/tar
 
 COPY . .
-RUN go mod vendor
+RUN go mod tidy
 RUN GO111MODULE="on" CGO_ENABLED=0 go build  -a -ldflags '-extldflags "-static"' -v -o ./build/hackathon-api ./main.go
 
 RUN apt update && \

@@ -2,14 +2,15 @@ package utils
 
 import (
 	"errors"
-	"github.com/rs/zerolog/log"
 	"hackathon-api/models"
 	_ "os"
+
+	"github.com/rs/zerolog/log"
 )
 
 func Checkb(b bool, msg string) {
 	if !b {
-		log.Error().Msgf("%v ", msg)
+		log.Error().Msgf("h => %v ", msg)
 	}
 }
 

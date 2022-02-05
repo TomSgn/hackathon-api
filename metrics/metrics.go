@@ -2,35 +2,22 @@ package metrics
 
 import "github.com/prometheus/client_golang/prometheus"
 
-const (
-	HostName      = "FinanceServicesGo"
-	HostGroupName = "PrometheusDemo"
-)
-
-var responseLabels = prometheus.Labels{
-	"resource": HostName,
-	"group":    HostGroupName,
-	"warning":  "2.5",
-	"critical": "2.8",
-}
-
 var ResponseStatus = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "response_status",
+		Name: "hackathon_5_response_status",
 		Help: "The status code of the response.",
 	},
 	[]string{"code", "method", "endpoint"},
 )
 
-var ResponseTime = prometheus.NewGaugeVec(
-	prometheus.GaugeOpts{
-		Name:        "response_time",
-		Help:        "Finance Services http response time average over 1 minute",
-		ConstLabels: responseLabels,
+var HttpResponseTime = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
+		Name: "hackathon_5_http_response_time_seconds",
+		Help: "Finance Services http response time average over 1 minute",
 	},
 	[]string{"code", "method", "endpoint"},
 )
 
 func RegisterMetrics() {
-	prometheus.MustRegister(ResponseStatus)
+	prometheus.MustRegister(ResponseStatus, HttpResponseTime)
 }

@@ -1,9 +1,9 @@
-name: Push checks (dev)
+name: Push checks (develop)
 
 on:
   push:
     branches:
-      - dev
+      - develop
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GKE_CLUSTER_NAME: cluster-staging

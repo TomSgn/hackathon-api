@@ -18,6 +18,14 @@ var TotalRequests = prometheus.NewCounterVec(
 	[]string{"endpoint"},
 )
 
+var CurrencyValue = prometheus.NewGaugeVec(
+	prometheus.GaugeOpts{
+		Name: "hackathon_5_currency_value",
+		Help: "The value of the currency.",
+	},
+	[]string{"currency"},
+)
+
 var HttpResponseTime = prometheus.NewHistogramVec(
 	prometheus.HistogramOpts{
 		Name: "hackathon_5_http_response_time_seconds",
@@ -27,5 +35,5 @@ var HttpResponseTime = prometheus.NewHistogramVec(
 )
 
 func RegisterMetrics() {
-	prometheus.MustRegister(ResponseStatus, HttpResponseTime, TotalRequests)
+	prometheus.MustRegister(ResponseStatus, HttpResponseTime, TotalRequests, CurrencyValue)
 }

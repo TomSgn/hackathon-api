@@ -17,6 +17,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/prometheus/client_golang v1.12.1 // indirect
 	github.com/rs/zerolog v1.26.1
+	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	go.mongodb.org/mongo-driver v1.8.1
 	golang.org/x/text v0.3.7 // indirect

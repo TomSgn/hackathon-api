@@ -23,7 +23,7 @@ var HttpResponseTime = prometheus.NewHistogramVec(
 		Name: "hackathon_5_http_response_time_seconds",
 		Help: "Finance Services http response time average over 1 minute",
 	},
-	[]string{"code", "method", "endpoint"},
+	[]string{"endpoint"},
 )
 
 func RegisterMetrics() {

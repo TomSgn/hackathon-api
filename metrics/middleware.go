@@ -14,7 +14,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 		if status == 404 || status == 401 || status == 403 {
 			return
 		}
-		timer := prometheus.NewTimer(HttpResponseTime.WithLabelValues(fmt.Sprintf("%d", c.Writer.Status()), c.Request.Method, c.Request.URL.Path))
+		timer := prometheus.NewTimer(HttpResponseTime.WithLabelValues(c.Request.URL.Path))
 		c.Next()
 
 		ResponseStatus.WithLabelValues(fmt.Sprintf("%d", c.Writer.Status()), c.Request.Method, c.Request.URL.Path).Inc()

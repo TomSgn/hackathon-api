@@ -33,7 +33,7 @@ Launching application
 
 ### To build the docker image
 
-You need to change the repositories address in Makefile ``` DOCKER_REPO= your_repo ``` 
+You need to change the repositories address in Makefile ``` DOCKER_REPO= your_repo ```
 
 If you need to be authenticated use ``` docker login ``` command with your credentials
 

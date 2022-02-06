@@ -1,4 +1,4 @@
-package main
+package responses
 
 import (
 	"testing"

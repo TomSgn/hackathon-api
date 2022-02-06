@@ -64,16 +64,16 @@ resources:
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
     cpu: 50m
-    memory: 16Mi
+    memory: 18Mi
   requests:
     cpu: 50m
-    memory: 16Mi
+    memory: 18Mi
 
 autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 20
-  targetMemoryUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 90
 
 nodeSelector: {}
 

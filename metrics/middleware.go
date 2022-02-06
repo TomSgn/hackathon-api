@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
@@ -34,6 +35,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 		if c.Request.URL.Path == "/statistics" {
 			var myBody map[string]interface{}
 			json.Unmarshal(w.body.Bytes(), myBody)
+			log.Println(myBody)
 			CurrencyValue.WithLabelValues(
 				myBody["stats"].(map[string]interface{})["money"].(string),
 			).Set(myBody["total"].(float64))

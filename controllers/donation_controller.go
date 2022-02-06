@@ -3,9 +3,6 @@ package controllers
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/rs/zerolog/log"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"hackathon-api/configs"
 	"hackathon-api/models"
 	"hackathon-api/responses"
@@ -15,11 +12,16 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/google/uuid"
+	"github.com/rs/zerolog/log"
+	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"os/exec"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"os/exec"
 )
 
 var donationCollection = configs.GetCollection(configs.DB, "donations")
@@ -181,7 +183,7 @@ func GetAllDonationsPaginated() gin.HandlerFunc {
 		searchTerm := c.DefaultQuery("term", "")
 
 		if errSortDesc != nil {
-			c.JSON(http.StatusBadRequest, fmt.Sprintf("invalid sort direction, must be 1 or -1 not %i", sortDesc))
+			c.JSON(http.StatusBadRequest, fmt.Sprintf("invalid sort direction, must be 1 or -1 not %d", sortDesc))
 			return
 		}
 

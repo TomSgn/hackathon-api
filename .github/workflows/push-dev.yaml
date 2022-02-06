@@ -1,12 +1,12 @@
-name: Push checks (main)
+name: Push checks (dev)
 
 on:
   push:
     branches:
-      - main
+      - dev
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  GKE_CLUSTER_NAME: cluster-demo
+  GKE_CLUSTER_NAME: cluster-staging
   GKE_REGION: europe-west1
 
 jobs:

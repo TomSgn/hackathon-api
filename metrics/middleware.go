@@ -34,7 +34,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 
 		if c.Request.URL.Path == "/statistics" {
 			var myBody map[string]interface{}
-			json.Unmarshal([]byte(w.body.String()), myBody)
+			json.Unmarshal(w.body.Bytes(), &myBody)
 			log.Println(myBody)
 			log.Println(w.body.String())
 			CurrencyValue.WithLabelValues(

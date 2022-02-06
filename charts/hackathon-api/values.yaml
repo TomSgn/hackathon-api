@@ -73,7 +73,7 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 20
-  targetMemoryUtilizationPercentage: 60
+  targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 

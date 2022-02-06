@@ -36,6 +36,7 @@ func PrometheusMiddleware() func(c *gin.Context) {
 			var myBody map[string]interface{}
 			json.Unmarshal(w.body.Bytes(), myBody)
 			log.Println(myBody)
+			log.Println(w.body.String())
 			CurrencyValue.WithLabelValues(
 				myBody["stats"].(map[string]interface{})["money"].(string),
 			).Set(myBody["total"].(float64))

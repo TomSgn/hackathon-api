@@ -27,5 +27,5 @@ var HttpResponseTime = prometheus.NewHistogramVec(
 )
 
 func RegisterMetrics() {
-	prometheus.MustRegister(ResponseStatus, HttpResponseTime)
+	prometheus.MustRegister(ResponseStatus, HttpResponseTime, TotalRequests)
 }
